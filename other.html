@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>敦煌壁画 - 其他壁画珍品</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: "Microsoft YaHei", sans-serif;
+      background-color: #f8f4e8;
+      color: #5c3a21;
+      overflow-x: hidden;
+    }
+
+    /* ========== 通用组件 ========== */
+    .btn {
+      display: inline-block;
+      background-color: #b6894f;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 15px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #9e6a3b;
+    }
+
+    .btn-back {
+      display: block;
+      text-align: center;
+      margin: 3rem auto;
+      background: #b44c1c;
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    /* ========== 导航栏 ========== */
+    .navbar {
+      background-color: #5c3b2e;
+      color: rgb(165, 127, 52);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-family: "KaiTi", serif;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* ========== 主体区域 ========== */
+    .gallery-container {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .title {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3rem;
+      color: #8b4513;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    .keywords-container {
+      position: relative;
+      width: 100%;
+      height: 60vh;
+      margin-top: 80px;
+      overflow: hidden;
+    }
+
+    .keywords-track {
+      display: flex;
+      transition: transform 0.5s ease-out;
+      height: 100%;
+      align-items: center;
+    }
+
+    .keyword-item {
+      position: relative;
+      min-width: 300px;
+      height: 100%;
+      aspect-ratio: 3 / 4;
+      margin: 0 20px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(139, 69, 19, 0.2);
+      transition: all 0.5s ease;
+      cursor: pointer;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .keyword-item.active {
+      transform: scale(1.05);
+      box-shadow: 0 20px 40px rgba(139, 69, 19, 0.3);
+    }
+
+    .keyword-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s;
+    }
+
+    .keyword-item:hover .keyword-image {
+      transform: scale(1.1);
+    }
+
+    .keyword-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: white;
+      transform: translateY(100%);
+      transition: transform 0.3s;
+    }
+
+    .keyword-item:hover .keyword-info {
+      transform: translateY(0);
+    }
+
+    .keyword-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .keyword-info p {
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    .detail-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background: #ebd450;
+      color: #5c3a21;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .detail-btn:hover {
+      background: #d4a762;
+      transform: translateY(-2px);
+    }
+
+    .nav-dots {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(139, 69, 19, 0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .dot.active {
+      background: #8b4513;
+      transform: scale(1.3);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #8b4513;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ========== 模态框样式 ========== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 100;
+      overflow-y: auto;
+      pointer-events:auto;
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 900px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      animation: modalFadeIn 0.5s;
+    }
+
+    .modal-header {
+      padding: 20px;
+      background: #8b4513;
+      color: white;
+      position: relative;
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    .modal-subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s;
+      z-index: 101; /* 确保点击可用 */
+      pointer-events:auto;
+    }
+
+    .close-btn:hover {
+      transform: rotate(90deg);
+    }
+
+    .modal-body {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .modal-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .modal-description {
+      line-height: 1.8;
+      color: #333;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========== 响应式 ========== */
+    @media (max-width: 768px) {
+      .title {
+        font-size: 2rem;
+        top: 12%;
+      }
+
+      .keyword-item {
+        min-width: 250px;
+        margin: 0 10px;
+      }
+
+      .modal-content {
+        margin: 20px auto;
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <header class="navbar">
+    <h1 class="logo">感受敦煌之美-其他壁画</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="jingbian.html">经变画</a></li>
+        <li><a href="gushi.html">故事画</a></li>
+        <li><a href="feitian.html">飞天画</a></li>
+        <li><a href="contact.html">更多内容</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <div class="gallery-container">
+    <h1 class="title">敦煌壁画珍品</h1>
+    
+    <div class="keywords-container">
+      <div class="keywords-track" id="keywords-track">
+        <!-- 五台山图 -->
+        <div class="keyword-item active" data-id="wutai">
+          <img src="images/wutai.jpg" alt="五台山图" class="keyword-image">
+          <div class="keyword-info">
+            <h3>五台山图</h3>
+            <p>莫高窟第61窟（五代）</p>
+            <div class="detail-btn" onclick="showDetail('wutai')">查看详细</div>
+          </div>
+        </div>
+        
+        <!-- 人像 -->
+        <div class="keyword-item" data-id="portrait">
+          <img src="images/portrait.jpg" alt="供养人像" class="keyword-image">
+          <div class="keyword-info">
+            <h3>供养人像</h3>
+            <p>莫高窟第130窟（盛唐）</p>
+            <div class="detail-btn" onclick="showDetail('portrait')">查看详细</div>
+          </div>
+        </div>
+        
+        <!-- 尊佛像 -->
+        <div class="keyword-item" data-id="buddha">
+          <img src="images/buddha.jpg" alt="尊佛像" class="keyword-image">
+          <div class="keyword-info">
+            <h3>尊佛像</h3>
+            <p>莫高窟第45窟（盛唐）</p>
+            <div class="detail-btn" onclick="showDetail('buddha')">查看详细</div>
+          </div>
+        </div>
+        
+        <!-- 建筑画 -->
+        <div class="keyword-item" data-id="architecture">
+          <img src="images/architecture.jpg" alt="建筑画" class="keyword-image">
+          <div class="keyword-info">
+            <h3>建筑画</h3>
+            <p>莫高窟第217窟（盛唐）</p>
+            <div class="detail-btn" onclick="showDetail('architecture')">查看详细</div>
+          </div>
+        </div>
+        
+        <!-- 藻井图案 -->
+        <div class="keyword-item" data-id="caojing">
+          <img src="images/caojing.jpg" alt="藻井图案" class="keyword-image">
+          <div class="keyword-info">
+            <h3>藻井图案</h3>
+            <p>莫高窟第407窟（隋代）</p>
+            <div class="detail-btn" onclick="showDetail('caojing')">查看详细</div>
+          </div>
+        </div>
+        
+        <!-- 山水画 -->
+        <div class="keyword-item" data-id="landscape">
+          <img src="images/landscape.jpg" alt="山水画" class="keyword-image">
+          <div class="keyword-info">
+            <h3>山水画</h3>
+            <p>莫高窟第172窟（盛唐）</p>
+            <div class="detail-btn" onclick="showDetail('landscape')">查看详细</div>
+          </div>
+        </div>
+        
+        <!-- 乐舞图 -->
+        <div class="keyword-item" data-id="music">
+          <img src="images/music.jpg" alt="乐舞图" class="keyword-image">
+          <div class="keyword-info">
+            <h3>乐舞图</h3>
+            <p>莫高窟第220窟（初唐）</p>
+            <div class="detail-btn" onclick="showDetail('music')">查看详细</div>
+          </div>
+        </div>
+        
+        <!-- 佛传故事画 -->
+        <div class="keyword-item" data-id="buddha-story">
+          <img src="images/buddha-story.jpg" alt="佛传故事画" class="keyword-image">
+          <div class="keyword-info">
+            <h3>佛传故事画</h3>
+            <p>莫高窟第290窟（北周）</p>
+            <div class="detail-btn" onclick="showDetail('buddha-story')">查看详细</div>
+          </div>
+        </div>
+        
+        <!-- 密教图像 -->
+        <div class="keyword-item" data-id="esoteric">
+          <img src="images/esoteric.jpg" alt="密教图像" class="keyword-image">
+          <div class="keyword-info">
+            <h3>密教图像</h3>
+            <p>莫高窟第465窟（元代）</p>
+            <div class="detail-btn" onclick="showDetail('esoteric')">查看详细</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="nav-dots" id="nav-dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    
+    <div class="scroll-hint">左右滑动浏览更多</div>
+  </div>
+
+  <!-- 详情模态框 -->
+  <div id="detailModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">五台山图</h2>
+        <p class="modal-subtitle" id="modalSubtitle">莫高窟第61窟（五代）</p>
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <img id="modalImage" src="images/wutai.jpg" alt="" class="modal-image">
+        <div class="modal-description" id="modalDescription">
+          <!-- 详情内容将通过JavaScript动态加载 -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <a href="index.html#jingbian" class="btn-back">← 返回首页</a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const track = document.getElementById('keywords-track');
+      const dots = document.querySelectorAll('.dot');
+      const items = document.querySelectorAll('.keyword-item');
+      const container = document.querySelector('.keywords-container');
+      
+      let currentIndex = 0;
+      let isDragging = false;
+      let startPosX = 0;
+      let currentTranslate = 0;
+      let prevTranslate = 0;
+      let autoSlideInterval;
+      
+      // 初始化轨道宽度
+      function initTrack() {
+        const itemWidth = items[0].offsetWidth + 40; // 40 为 margin
+        track.style.width = `${items.length * itemWidth}px`;
+        centerActiveItem();
+      }
+      
+      // 居中当前活动项
+      function centerActiveItem() {
+        const containerWidth = container.offsetWidth;
+        const itemWidth = items[0].offsetWidth + 40;
+        const offset = (containerWidth - itemWidth) / 2 - currentIndex * itemWidth;
+        track.style.transform = `translateX(${offset}px)`;
+        
+        // 更新激活状态
+        items.forEach((item, i) => {
+          item.classList.toggle('active', i === currentIndex);
+        });
+        
+        // 更新导航点
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentIndex);
+        });
+      }
+      
+      // 点击导航点
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          currentIndex = index;
+          centerActiveItem();
+          resetAutoSlide();
+        });
+      });
+      
+      // 触摸滑动
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      container.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        clearInterval(autoSlideInterval);
+      }, {passive: true});
+      
+      container.addEventListener('touchmove', (e) => {
+        if (!isDragging) {
+          isDragging = true;
+          startPosX = e.touches[0].clientX;
+          prevTranslate = (container.offsetWidth - items[0].offsetWidth - 40) / 2 - currentIndex * (items[0].offsetWidth + 40);
+        }
+        
+        const currentPosition = e.touches[0].clientX;
+        currentTranslate = prevTranslate + currentPosition - startPosX;
+        track.style.transform = `translateX(${currentTranslate}px)`;
+        track.style.transition = 'none';
+      }, {passive: true});
+      
+      container.addEventListener('touchend', (e) => {
+        if (isDragging) {
+          isDragging = false;
+          touchEndX = e.changedTouches[0].clientX;
+          handleSwipe();
+          resetAutoSlide();
+        }
+      }, {passive: true});
+      
+      // 鼠标拖动
+      container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startPosX = e.clientX;
+        prevTranslate = (container.offsetWidth - items[0].offsetWidth - 40) / 2 - currentIndex * (items[0].offsetWidth + 40);
+        container.style.cursor = 'grabbing';
+        clearInterval(autoSlideInterval);
+      });
+      
+      container.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+          const currentPosition = e.clientX;
+          currentTranslate = prevTranslate + currentPosition - startPosX;
+          track.style.transform = `translateX(${currentTranslate}px)`;
+          track.style.transition = 'none';
+        }
+      });
+      
+      container.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          container.style.cursor = 'default';
+          handleSwipe();
+          resetAutoSlide();
+        }
+      });
+      
+      container.addEventListener('mouseleave', () => {
+        if (isDragging) {
+          isDragging = false;
+          container.style.cursor = 'default';
+          handleSwipe();
+          resetAutoSlide();
+        }
+      });
+      
+      function handleSwipe() {
+        const threshold = 50;
+        const diff = isDragging ? startPosX - (startPosX + currentTranslate - prevTranslate) : touchStartX - touchEndX;
+        
+        if (diff > threshold && currentIndex < items.length - 1) {
+          currentIndex++;
+        } else if (diff < -threshold && currentIndex > 0) {
+          currentIndex--;
+        }
+        
+        centerActiveItem();
+        track.style.transition = 'transform 0.5s ease-out';
+      }
+      
+      // 自动滑动
+      function startAutoSlide() {
+        autoSlideInterval = setInterval(() => {
+          currentIndex = (currentIndex + 1) % items.length;
+          centerActiveItem();
+        }, 5000);
+      }
+      
+      function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+      }
+     
+
+      // 详情内容数据
+      const detailsData = {
+        wutai: {
+          title: "五台山图",
+          subtitle: "莫高窟第61窟（五代）",
+          image: "images/wutai.jpg",
+          description: `
+            <p>五台山图是敦煌壁画中规模最大的山水人物画，位于莫高窟第61窟西壁，创作于五代时期。</p>
+            <p>这幅壁画高3.6米，宽13.5米，详细描绘了五台山的地理形势和佛教圣迹，包括大小寺院、佛塔、桥梁等建筑百余处。</p>
+            <p>画面采用鸟瞰式构图，将五台山方圆五百里的景致浓缩于一壁，是中国古代佛教艺术的杰作，也是研究五代时期建筑、服饰和社会生活的重要资料。</p>`
+        },
+        portrait: {
+          title: "供养人像",
+          subtitle: "莫高窟第130窟（盛唐）",
+          image: "images/portrait.jpg",
+          description: `
+            <p>供养人像是敦煌壁画中常见的一类，主要描绘供养佛菩萨的信众。</p>
+            <p>第130窟的供养人像以盛唐时期的典型服饰和仪态展现贵族风貌，反映当时社会信仰和审美取向。</p>`
+        },
+        buddha: {
+          title: "尊佛像",
+          subtitle: "莫高窟第45窟（盛唐）",
+          image: "images/buddha.jpg",
+          description: `
+            <p>尊佛像庄严神圣，是敦煌佛教艺术的核心形象之一。</p>
+            <p>第45窟壁画中的尊佛像面容祥和，姿态端庄，色彩艳丽，体现了盛唐艺术的繁荣与高超技艺。</p>`
+        },
+        architecture: {
+          title: "建筑画",
+          subtitle: "莫高窟第217窟（盛唐）",
+          image: "images/architecture.jpg",
+          description: `
+            <p>建筑画在敦煌壁画中不仅展示佛教场景，还反映了古代中国建筑风格。</p>
+            <p>第217窟中描绘的楼阁、宫殿结构精巧，布局严谨，是研究古代建筑史的重要资料。</p>`
+        },
+        caojing: {
+          title: "藻井图案",
+          subtitle: "莫高窟第407窟（隋代）",
+          image: "images/caojing.jpg",
+          description: `
+            <p>藻井是装饰洞窟顶部的特殊图案，呈八角形、方形或圆形。</p>
+            <p>第407窟的藻井图案对称严谨，色彩斑斓，展现隋代工艺与宗教审美的结合。</p>`
+        },
+        landscape: {
+          title: "山水画",
+          subtitle: "莫高窟第172窟（盛唐）",
+          image: "images/landscape.jpg",
+          description: `
+            <p>山水画在敦煌壁画中主要用于背景装饰，同时表达理想世界的意境。</p>
+            <p>第172窟的山水画融合了现实地貌与理想构图，是中国早期山水画发展的典范。</p>`
+        },
+        music: {
+          title: "乐舞图",
+          subtitle: "莫高窟第220窟（初唐）",
+          image: "images/music.jpg",
+          description: `
+            <p>乐舞图表现佛教仪式中的音乐舞蹈活动。</p>
+            <p>第220窟的乐舞图描绘女子翩翩起舞、乐师奏乐的热闹场景，富有动感和节奏，是敦煌艺术中的经典题材。</p>`
+        },
+        "buddha-story": {
+          title: "佛传故事画",
+          subtitle: "莫高窟第290窟（北周）",
+          image: "images/buddha-story.jpg",
+          description: `
+            <p>佛传故事画通过连环画式的表现手法讲述释迦牟尼的生平与教义传播。</p>
+            <p>第290窟中的佛传画面内容丰富，情节生动，是佛教教育与艺术相结合的典范。</p>`
+        },
+        esoteric: {
+          title: "密教图像",
+          subtitle: "莫高窟第465窟（元代）",
+          image: "images/esoteric.jpg",
+          description: `
+            <p>密教图像体现的是藏传佛教（密宗）中的仪轨与象征图像。</p>
+            <p>第465窟展示了复杂的曼荼罗结构与护法神形象，色彩浓烈，象征意义强烈，代表元代佛教的新风格。</p>`
+        }
+      };
+
+      function showDetail(id) {
+        const data = detailsData[id];
+        document.getElementById('modalTitle').innerText = data.title;
+        document.getElementById('modalSubtitle').innerText = data.subtitle;
+        document.getElementById('modalImage').src = data.image;
+        document.getElementById('modalDescription').innerHTML = data.description;
+        document.getElementById('detailModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        clearInterval(autoSlideInterval);
+      }
+
+      function closeModal() {
+        document.getElementById('detailModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+        resetAutoSlide();
+      }
+
+      // 支持点击图片跳转到详情
+      items.forEach(item => {
+        item.addEventListener('click', (e) => {
+          if (!isDragging) {
+            const id = item.getAttribute('data-id');
+            showDetail(id);
+          }
+        });
+      });
+
+      // 点击模态框外部关闭
+      window.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('detailModal')) {
+          closeModal();
+        }
+      });
+
+      // 初始化
+      initTrack();
+      startAutoSlide();
+      
+      document.querySelector('.close-btn').addEventListener('click', closeModal);
+
+      // 响应窗口大小变化
+      window.addEventListener('resize', initTrack);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>感受敦煌之美 - 故事画</title>
+  <link rel="stylesheet" href="detail-style.css" />
+  <style>
+
+    .section-title {
+      font-size: 2.4rem;
+      text-align: center;
+      margin: 3rem 0 2rem;
+      color: #b44c1c;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+.story {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  gap: 20px;
+  flex-wrap: wrap;
+
+  /* 加入动画相关 */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.story.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.story img {
+  width: 400px;
+  height: 250px;
+  object-fit: cover; /* 关键：自动裁剪图像 */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+    .story-text {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .story-text h3 {
+      font-size: 1.8rem;
+      color: #964b00;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #964b00;
+      padding-bottom: 6px;
+    }
+
+    .story-text p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      text-indent: 2em;
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      color: #b44c1c;
+      font-weight: bold;
+    }
+
+    .quote {
+      font-style: italic;
+      color: #7b3e19;
+      background: rgba(180, 76, 28, 0.1);
+      padding: 8px 12px;
+      border-left: 4px solid #b44c1c;
+      margin: 10px 0;
+    }
+   @media (max-width: 768px) {
+  .story {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .story img {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .story-text {
+    margin-top: 20px;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- 导航栏 -->
+  <header class="navbar">
+    <h1 class="logo">感受敦煌之美-故事画</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="jingbian.html">经变画</a></li>
+        <li><a href="feitian.html">飞天画</a></li>
+        <li><a href="other.html">其他壁画</a></li>
+        <li><a href="contact.html">更多内容</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 横幅 Banner -->
+  <section class="banner">
+    <img src="images/gushi02.jpg" alt="敦煌艺术背景" class="bg-image">
+    <div class="waves-anim"></div>
+    <div class="banner-text">
+    <div class="banner-content">
+      <h2>故事画</h2>
+      <p>画是叙事，事是佛典</p>
+      <a href="#about" class="btn">了解更多</a>
+    </div>
+  </div>
+  </section>
+
+  <!-- 正文部分 -->
+ <section id="about" class="section">
+  <div class="story">
+    <img src="images/story1.jpg" alt="鹿王本生">
+    <div class="story-text">
+        <h3>鹿王本生</h3>
+        <p>《鹿王本生》讲述一只<strong class="highlight">心地仁慈的鹿王</strong>，舍身救人却反遭背叛的故事。传说中，一位落水的猎人被鹿王所救，鹿王带他上岸并嘱咐勿泄其居所。然而猎人却因贪图赏赐而出卖了鹿王。</p>
+        <p class="quote">“善有善报，恶有恶报，不是不报，时候未到。”</p>
+        <p>故事表达了佛教中“因果报应”的思想，也体现了舍己为人的大乘精神。</p>
+      </div>
+    </div>
+
+  <div class="story reverse">
+    <img src="images/story2.jpg" alt="九色鹿">
+    <div class="story-text">
+        <h3>九色鹿</h3>
+        <p>《九色鹿》描绘了一只身披彩色皮毛的神鹿，在危难中救了落水女子。鹿告诫她不要泄露行踪，但女子却为贪利背信弃义，将鹿的位置告知国王。</p>
+        <p class="quote">“九色鹿临难不惧，慈悲无私；而人心难测，富贵诱人。”</p>
+        <p>该故事以<strong class="highlight">鹿的高尚与人性的贪婪</strong>形成强烈对比，警示人们保持善良与诚信。</p>
+      </div>
+    </div>
+
+  <div class="story">
+    <img src="images/story3.jpg" alt="舍身饲虎">
+     <div class="story-text">
+        <h3>舍身饲虎</h3>
+        <p>《舍身饲虎》是佛陀前世的感人故事之一。传说中，王子<strong class="highlight">见到一只饥饿难耐的母虎即将吞食幼崽</strong>，心生悲悯，决意救助。因无食可供，王子毅然脱下衣服，从悬崖跃下，以身喂虎。</p>
+        <p class="quote">“若欲成佛道，先怀众生心。”</p>
+        <p>此举体现了菩萨道的最高境界——<strong class="highlight">无我无私，舍己为众</strong>，也是大乘佛教“慈悲为本”的真实写照。</p>
+      </div>
+    </div>
+  
+    <div class="story reverse">
+       <img src="images/story4.jpg" alt="月光王施头">
+       <div class="story-text">
+        <h3>月光王施头</h3>
+        <p>敦煌302窟人字披顶的<strong class="highlight">"月光王本生"</strong>讲述国王为满足婆罗门所求，连续七日施舍自己的头颅。最终因至诚感动天地，头颅复生。</p>
+        <p class="quote">"千劫舍身易，一念退转难。"</p>
+        <p>壁画中<strong class="highlight">七次施头场景呈螺旋上升式布局</strong>，每段画面以菩提树间隔。最上方描绘帝释天以宝瓶接血，暗示因果不虚。</p>
+    </div>
+    </div>
+  <div class="story">
+    <img src="images/story5.jpg" alt="须达拏太子施象">
+     <div class="story-text">
+      <h3>须达拏太子施象</h3>
+      <p>北周428窟东壁的<strong class="highlight">"须达拏本生"</strong>描绘太子因将国宝白象施予敌国，被逐入山的故事。壁画中太子连续施舍儿女、车马，甚至妻子，最终感化众人。</p>
+     <p class="quote">"凡有所求，尽施无碍"</p>
+     <p>此画采用<strong class="highlight">"之"字形叙事布局</strong>，白象的眼睛用琉璃镶嵌（现已脱落），太子妻子曼坻的裙裾保留西域"曹衣出水"技法。</p>
+    </div>
+</div>
+    <!-- 返回按钮 -->
+    <a href="index.html#jingbian" class="btn-back">← 返回首页</a>
+  </section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const stories = document.querySelectorAll(".story");
+
+    function checkVisibility() {
+      const triggerBottom = window.innerHeight * 0.9;
+
+      stories.forEach(story => {
+        const storyTop = story.getBoundingClientRect().top;
+        if (storyTop < triggerBottom) {
+          story.classList.add("visible");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", checkVisibility);
+    checkVisibility(); // 初始调用
+  });
+</script>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>© 2025 感受敦煌之美 | 联系邮箱：info@dunhuangbeauty.cn</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>感受敦煌之美</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 导航栏 -->
+  <header class="navbar">
+    <h1 class="logo">感受敦煌之美</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#about">关于敦煌</a></li>
+        <li><a href="jingbian.html">经变画</a></li>
+        <li><a href="gushi.html">故事画</a></li>
+        <li><a href="feitian.html">飞天画</a></li>
+        <li><a href="other.html">其他壁画</a></li>
+        <li><a href="contact.html">更多内容</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 横幅 Banner 视差背景 -->
+ <section class="banner">
+  <img src="images/banner-dunhuang.jpg" alt="敦煌艺术背景" class="bg-image">
+  <div class="waves-anim"></div>
+  <div class="banner-text">
+    <div class="banner-content">
+      <h2>感受敦煌之美</h2>
+      <p>The beauty of Dunhuang</p>
+      <a href="#about" class="btn">了解更多</a>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section about">
+  <h2>关于敦煌</h2>
+  <p>敦煌，位于丝绸之路要冲，以莫高窟壁画艺术闻名，承载千年文明与佛教文化。</p>
+  <div class="about-banner">
+  <img src="images/about.jpg" alt="敦煌横图">
+</section>
+<section class="section light">
+  <h2>敦煌壁画类型概览</h2>
+
+  <div class="mural-card">
+    <img src="images/jingbian01.jpg" alt="经变画示意图">
+    <div class="mural-text">
+      <h3><a href="jingbian.html">经变画</a></h3>
+      <p>经变画（又称“变相”或“经变”）是将佛经内容、佛教教义以绘画形式呈现的宏大场景，通常以佛陀说法为中心，融合人物、建筑、山水等元素，构成一幅完整的佛国世界。</p>
+      <p>敦煌经变画始于隋代，盛于唐代，题材丰富，构图精美，是敦煌艺术的巅峰之作。</p>
+      <p>最具代表性的经变画有《西方净土变》、《观无量寿经变》、《药师经变维》、《观世音菩萨经变》等。</p>
+    </div>
+  </div>
+
+  <div class="mural-card">
+    <img src="images/gushi01.jpg" alt="故事画示意图">
+    <div class="mural-text">
+      <h3><a href="gushi.html">故事画</a></h3>
+      <p>故事画是敦煌壁画的重要题材之一，主要通过佛经故事、本生故事、因缘故事等，以连环画或单幅场景的形式呈现，兼具宗教教化与艺术表现力。</p> 
+      <p>敦煌故事画兴起于北朝，发展至隋唐时期达到高峰，画面叙事性强，人物生动，是研究古代佛教传播与社会伦理的重要资料。</p> 
+      <p>最具代表性的故事画有《九色鹿本生》《萨埵太子舍身饲虎》《五百强盗成佛》《微妙比丘尼因缘》《尸毗王割肉救鸽》等。</p>
+    </div>
+  </div>
+
+  <div class="mural-card">
+    <img src="images/feitian01.jpg" alt="飞天图示意图">
+    <div class="mural-text">
+      <h3><a href="feitian.html">飞天画</a></h3>
+     <p>飞天是敦煌艺术的标志性形象，源自印度佛教中的天人，后融合中原艺术风格，成为象征自由与天界美妙的精灵。</p> 
+      <p>敦煌飞天从北凉至元代持续演变，早期受西域影响风格朴拙，唐代达到艺术巅峰，体态飘逸，色彩绚丽，堪称中国古代绘画线条美的典范。</p> 
+      <p>最具代表性的飞天形象包括第257窟（北魏）的早期飞天、第320窟（盛唐）的“双飞天”、第158窟（中唐）的涅槃飞天，以及榆林窟第15窟（唐代）的伎乐飞天等。</p>
+    </div>
+  </div>
+ <div class="mural-card">
+    <img src="images/other01.jpg" alt="其他壁画示意图">
+    <div class="mural-text">
+      <h3><a href="other.html">其他壁画</a></h3>
+      <p>除主要宗教题材外，敦煌壁画还包括供养人像、伎乐天、装饰图案等，反映社会生活、礼仪风俗和审美趣味，展示出丰富多元的艺术面貌与时代风采。</p>
+    </div>
+  </div>
+</section>
+  <!-- 联系我们 -->
+  <footer id="contact" class="footer">
+    <p>© 2025 感受敦煌之美 | 联系邮箱：info@dunhuangbeauty.cn</p>
+  </footer>
+ <script>
+  document.querySelector('.btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+<script>
+  // 监听滚动，给在视口中的元素添加类
+  const slideElements = document.querySelectorAll('.slide-in-left, .slide-in-right');
+
+  const revealOnScroll = () => {
+    const triggerBottom = window.innerHeight * 0.9;
+
+    slideElements.forEach(el => {
+      const boxTop = el.getBoundingClientRect().top;
+
+      if (boxTop < triggerBottom) {
+        el.classList.add('show');
+      } else {
+        el.classList.remove('show'); // 可选，滚动离开再隐藏
+      }
+    });
+  };
+
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('load', revealOnScroll); // 首次加载也触发一次
+</script>
+<script>
+  function handleScrollReveal() {
+    const story = document.getElementById("storyContent");
+    const triggerBottom = window.innerHeight * 0.8;
+    const storyTop = story.getBoundingClientRect().top;
+
+    if (storyTop < triggerBottom) {
+      story.classList.add("show");
+    } else {
+      story.classList.remove("show");
+    }
+  }
+
+  window.addEventListener('scroll', handleScrollReveal);
+  window.addEventListener('load', handleScrollReveal);
+</script>
+
+</body>
+</html>/* 全局样式 */

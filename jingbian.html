@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>感受敦煌之美-经变画</title>
+ <link rel="stylesheet" href="detail-style.css" />
+<style>
+      /* 图片文字布局 */
+    .image-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+    .image-category {
+      position: relative;
+      width: 48%; /* 左右布局，每个分类占48%的宽度 */
+      height: 300px; /* 设置固定高度 */
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+    .image-category img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* 保持图片宽高比，按比例缩放 */
+      border-radius: 12px;
+    }
+  .image-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0); /* 默认透明 */
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.image-description {
+  font-size: 16px;
+  text-align: center;
+  padding: 0 10px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.image-category:hover .image-text {
+  background-color: rgba(0, 0, 0, 0.7); /* 悬停时变暗 */
+  opacity: 1;
+}
+.image-category:hover .image-description {
+  opacity: 1;
+  max-height: 100px;
+  margin-top: 10px;
+}
+.image-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+}
+.horizontal-item {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  text-align: center;
+  width: 200px;
+}
+.horizontal-item img {
+  width: 200px;
+  height: 140px;
+  object-fit: cover; /* 保持比例填充区域，超出部分裁剪 */
+  border-radius: 12px;
+}
+.horizontal-item p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* 隐藏滚动条（可选） */
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+.horizontal-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+/* 左右按钮 */
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.scroll-btn {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  z-index: 2;
+  position: absolute; /* 关键点：让按钮固定在内容之上 */
+  top: 50%;
+  transform: translateY(-50%);
+}
+.scroll-btn.left {
+  left: 0;
+}
+
+.scroll-btn.right {
+  right: 0;
+}
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  width: 90%;
+}
+.horizontal-item {
+  flex: 0 0 calc(33.333% - 10px); /* 一行放三张图，减去 margin */
+  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  text-align: center;
+}
+
+.horizontal-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.horizontal-item p {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+/* 净土式经变发展历程 - 图文交错布局 */
+.jingtu-development {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin: 50px auto;
+  max-width: 1100px;
+}
+
+.jingtu-phase {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #d6a451; /* 更柔和金色 */
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #a5926f;
+  color: #fff;
+  gap: 20px;
+}
+
+.jingtu-phase:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.jingtu-phase img {
+  width: 48%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.jingtu-text {
+  width: 48%;
+}
+
+.jingtu-text h3 {
+  color: #ffc83d;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.jingtu-text p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+ </style>
+</head>
+<body>
+
+  <!-- 导航栏 -->
+  <header class="navbar">
+    <h1 class="logo">感受敦煌之美-经变画</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="gushi.html">故事画</a></li>
+        <li><a href="feitian.html">飞天画</a></li>
+        <li><a href="other.html">其他壁画</a></li>
+        <li><a href="contact.html">更多内容</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 横幅 Banner 视差背景 -->
+ <section class="banner">
+  <img src="images/jingbian02.jpg" alt="敦煌艺术背景" class="bg-image">
+  <div class="waves-anim"></div>
+  <div class="banner-text">
+    <div class="banner-content">
+      <h2>经变画</h2>
+      <p>经是佛经，变是“变相”</p>
+      <a href="#about" class="btn">了解更多</a>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section about">
+  <h2>经变画的分类</h2>
+    <div class="image-container">
+    <div class="image-category">
+  <img src="images/niepan.jpg" alt="涅槃经变">
+  <div class="image-text">
+    <div class="image-title">涅槃经变</div>
+    <div class="image-description">涅槃经变是敦煌壁画中表现佛陀入灭场景的重要题材，主要依据《大般涅槃经》绘制。
+      这类经变画以释迦牟尼佛右胁而卧的涅槃像为中心，周围环绕举哀的弟子、菩萨、天众等形象，展现佛教对生死超越的终极境界。</div>
+  </div>
+</div>
+<div class="image-category">
+  <img src="images/jingtu.jpg" alt="净土式经变">
+  <div class="image-text">
+    <div class="image-title">净土式经变</div>
+    <div class="image-description">净土式经变描绘的是阿弥陀佛极乐世界的美好景象，主要依据《阿弥陀经》《观无量寿经》等经典绘制。
+      这类经变画以主尊佛为中心，展现七宝池、八功德水的殊胜景观，以及天乐鸣空、伎乐舞蹈的极乐场景，为信众提供往生西方净土的视觉寄托。</div>
+  </div>
+ </div>
+</div>
+ <!-- 滚动发展历程 -->
+  <h2>涅槃经变的发展历程</h2>
+  <div class="carousel-wrapper">
+  <button class="scroll-btn left" onclick="scrollLeft()">←</button> 
+      <div class="horizontal-scroll" id="niepan-carousel">
+        <div class="horizontal-item"><img src="images/niepan01.jpg">
+         <p>举行葬礼</p>
+         <p>莫高窟第158窟西壁15.6米的卧佛，展现佛陀右胁而卧的涅槃姿态。</p>
+         </div>
+        <div class="horizontal-item"><img src="images/niepan02.jpg">
+         <p>众弟子举哀</p>
+         <p>第332窟西壁唐代壁画中，众弟子举哀，佛陀右胁而卧，展现佛教对生死超越的终极境界。</p>
+        </div>
+        <div class="horizontal-item"><img src="images/niepan03.jpg">
+          <p>均分设立</p>
+          <p>第332窟壁画中，八国国王均分佛陀舍利，各自回国建塔供养。</p>
+        </div>
+        <div class="horizontal-item"><img src="images/niepan04.jpg">
+          <p>建立佛塔</p>
+          <p>第295窟隋代壁画描绘佛陀遗体被安放在七宝棺中，末罗族人以转轮圣王礼仪处理佛身，用五百层细软白布包裹。</p>
+        </div>
+        <div class="horizontal-item"><img src="images/niepan05.jpg">
+          <p>传教仪式</p>
+          <p>第148窟盛唐壁画记录佛陀火化时刻，火种迟迟不燃等待迦叶尊者，既体现师徒伦理，也暗示涅槃非凡火可及。</p>
+        </div>
+        <div class="horizontal-item"><img src="images/niepan06.jpg">
+          <p>弘扬佛法</p>
+          <p>第61窟五代壁画再现八国争分舍利场景，香姓婆罗门持秤平分舍利，各国使者恭敬领取，直接促成了佛塔崇拜兴起。</p>
+        </div>
+        <div class="horizontal-item"><img src="images/niepan07.jpg">
+          <p>国家供养</p>
+          <p>第254窟北魏壁画展示早期佛塔形制，八王将舍利带回建塔供养，图中信众绕塔礼拜，见证佛教艺术本土化进程。</p>
+        </div>
+        <div class="horizontal-item"><img src="images/niepan08.jpg">
+          <p>终极图景</p>
+          <p>第158窟涅槃经变最终展现佛法弘扬，下部绘各国王子哀悼习俗，上部菩萨说法，形成生死悲欣的交响。</p>
+        </div>
+      </div>
+      <button class="scroll-btn right" onclick="scrollRight()">→</button>
+    </div>
+</div>
+<h2>净土式经变的发展历程</h2>
+<div class="jingtu-development">
+  <div class="jingtu-phase">
+    <img src="images/jingtu01.jpg" alt="初期探索阶段">
+    <div class="jingtu-text">
+      <h3>1. 初期探索阶段</h3>
+      <p>这一阶段的净土式经变画多依据《佛说阿弥陀经》等早期经典进行创作，画面结构相对简单，强调阿弥陀佛形象与净土场景的基本构成。</p>
+    </div>
+  </div>
+
+  <div class="jingtu-phase">
+    <img src="images/jingtu02.jpg" alt="盛期繁荣阶段">
+    <div class="jingtu-text">
+      <h3>2. 盛期繁荣阶段</h3>
+      <p>此时期经变画艺术达到高峰，画面中增加了大量菩萨、供养人、宝树宝池等元素，构图对称、色彩丰富，表现净土庄严的视觉冲击力极强。</p>
+    </div>
+  </div>
+
+  <div class="jingtu-phase">
+    <img src="images/jingtu03.jpg" alt="晚期融合阶段">
+    <div class="jingtu-text">
+      <h3>3. 晚期融合阶段</h3>
+      <p>晚期作品将净土思想与密教等其他宗教元素融合，画面更具象征性与神秘感，反映出佛教艺术不断演化与地域化的趋势。</p>
+    </div>
+  </div>
+</div>
+    <a href="index.html#jingbian" class="btn-back">← 返回首页</a>
+<script>
+  const scrollContainer = document.getElementById('niepan-carousel');
+  const scrollStep = 220;
+
+  function scrollLeft() {
+    console.log("当前 scrollLeft:", scrollContainer.scrollLeft);
+    scrollContainer.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+  }
+
+  function scrollRight() {
+    console.log("当前 scrollLeft:", scrollContainer.scrollLeft);
+    scrollContainer.scrollBy({ left: scrollStep, behavior: 'smooth' });
+  }
+
+  // 自动滑动每5秒
+  let autoScrollInterval = setInterval(() => {
+    if (
+      scrollContainer.scrollLeft + scrollContainer.clientWidth >=
+      scrollContainer.scrollWidth
+    ) {
+      scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      scrollContainer.scrollBy({ left: scrollStep, behavior: 'smooth' });
+    }
+  }, 5000);
+
+  scrollContainer.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+  scrollContainer.addEventListener('mouseleave', () => {
+    autoScrollInterval = setInterval(() => {
+      if (
+        scrollContainer.scrollLeft + scrollContainer.clientWidth >=
+        scrollContainer.scrollWidth
+      ) {
+        scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        scrollContainer.scrollBy({ left: scrollStep, behavior: 'smooth' });
+      }
+    }, 5000);
+  });
+</script>
+
+<footer class="footer">
+    <p>© 2025 感受敦煌之美 | 联系邮箱：info@dunhuangbeauty.cn</p>
+</footer>
+</body>
+</html>
